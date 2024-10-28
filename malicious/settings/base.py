@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', # required for serving swagger ui's css/js files
     'accounts',
     'malicious_beauty',
+    'madameParfum',
     'core',
     'rest_framework',
     'rest_framework.authtoken',
