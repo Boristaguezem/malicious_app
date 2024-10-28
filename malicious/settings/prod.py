@@ -4,8 +4,8 @@ from malicious.settings.base import BASE_DIR
 
 
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
-CSRF_TRUSTED_ORIGINS = ['https://'+os.environ['WEBSITE_HOSTNAME']]
+ALLOWED_HOSTS = [*]
+# CSRF_TRUSTED_ORIGINS = ['https://'+os.environ['WEBSITE_HOSTNAME']]
 DEBUG = False
 SECRET_KEY = os.environ['MY_SECRET_KEY']
 
@@ -34,8 +34,8 @@ STORAGES = {
     },
 }
 
-CONNECTION = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-CONNECTION_STRING = {pair.split('=')[0]: pair.split('=')[1] for pair in CONNECTION.split(' ')}
+# CONNECTION = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
+# CONNECTION_STRING = {pair.split('=')[0]: pair.split('=')[1] for pair in CONNECTION.split(' ')}
 
 DATABASES = {
     # 'default': {
@@ -45,12 +45,20 @@ DATABASES = {
     #     'PASSWORD': CONNECTION_STRING['password'],
     #     'HOST': CONNECTION_STRING['host'],
     # }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'kuma0997_malicious',
+    #     'USER': 'kuma0997_aiteca',
+    #     'PASSWORD': 'Od]ys0_MpBlB',
+    #     'HOST': 'localhost',
+    #     'PORT': 5432,
+    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kuma0997_malicious',
-        'USER': 'kuma0997_aiteca',
-        'PASSWORD': 'Od]ys0_MpBlB',
-        'HOST': 'localhost',
+        'NAME': 'malicious',
+        'USER': 'aitec_user',
+        'PASSWORD': '6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv',
+        'HOST': 'postgresql://aitec_user:6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv@dpg-csfvg9bv2p9s73fkae0g-a/malicious',
         'PORT': 5432,
     }
 }
