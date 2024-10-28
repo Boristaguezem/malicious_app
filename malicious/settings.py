@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,6 +73,14 @@ REST_FRAMEWORK = {
     ]
 }
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 ROOT_URLCONF = 'malicious.urls'
 
 TEMPLATES = [
@@ -106,11 +115,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'malicious',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'USER': 'aitec_user',
+        'PASSWORD': '6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv',
+        'HOST': 'postgresql://aitec_user:6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv@dpg-csfvg9bv2p9s73fkae0g-a/malicious',
         'PORT': 5432,
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'malicious',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
+    #     'HOST': 'localhost',
+    #     'PORT': 5432,
+    # }
 
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
     # "default": {
@@ -158,6 +175,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR/'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
