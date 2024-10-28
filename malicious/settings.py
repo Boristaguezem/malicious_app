@@ -36,14 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'core',
+    'django.contrib.staticfiles', # required for serving swagger ui's css/js files
     'accounts',
     'malicious_beauty',
+    'madameParfum',
+    'core',
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework.authtoken',
     'corsheaders',
-    "phonenumber_field",
+    "phonenumber_field", 
     'drf_yasg',
 ]
 
@@ -165,3 +166,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #user Model
 AUTH_USER_MODEL = "accounts.User"
+
+SWAGGER_SETTINGS = {
+   'LOGIN_URL': '/admin/login',
+   'LOGOUT_URL':'/admin/logout'
+}
+
+#mail Settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'borisloves1@gmail.com'
+EMAIL_HOST_PASSWORD = 'skqb wekw lvmt yjbq'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'borisloves1@gmail.com'
