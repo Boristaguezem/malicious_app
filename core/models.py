@@ -78,7 +78,7 @@ class Order(models.Model):
     shipping_fees = models.DecimalField(max_digits=20, decimal_places=2)
     total_cost = models.DecimalField(max_digits=20, decimal_places=2)
     status =  models.ForeignKey(OrderStatus, on_delete=models.SET_NULL, null=True)
-    payment_method = models.CharField(choices=payment_methods, default="card")
+    payment_method = models.CharField(choices=payment_methods, default="card", max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now = True)
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
