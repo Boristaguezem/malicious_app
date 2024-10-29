@@ -6,11 +6,11 @@ services:
     buildCommand: "./build.sh"
     startCommand: "python -m gunicorn malicious.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
-      - key: DATABASE_URL
+      - key: 'postgresql://aitec_user:6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv@dpg-csfvg9bv2p9s73fkae0g-a/malicious'
         fromDatabase:
-          name: malicious
+          name: 'malicious'
           property: connectionString
-      - key: 6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv
+      - key: '6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv'
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
