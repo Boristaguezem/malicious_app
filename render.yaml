@@ -1,3 +1,9 @@
+databases:
+  - name: malicious
+    plan: free
+    databaseName: malicious
+    user: aitec_user
+    
 services:
   - type: web
     plan: free
