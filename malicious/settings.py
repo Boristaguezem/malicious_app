@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ee7+g!#m+p)gu5n)airf5efz(!a(i2zlgx$7p)(x31#rpdwwhr'
+# SECRET_KEY = 'django-insecure-ee7+g!#m+p)gu5n)airf5efz(!a(i2zlgx$7p)(x31#rpdwwhr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = 'RENDER' not in os.environ
+# SECRET_KEY = os.environ['MY_SECRET_KEY']
+SECRET_KEY = os.environ.get('MY_SECRET_KEY')
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,7 +86,11 @@ STORAGES = {
     },
 }
 ROOT_URLCONF = 'malicious.urls'
-
+if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -112,14 +120,15 @@ WSGI_APPLICATION = 'malicious.wsgi.application'
 #     }
 # }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'malicious',
-        'USER': 'aitec_user',
-        'PASSWORD': '6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv',
-        'HOST': 'postgresql://aitec_user:6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv@dpg-csfvg9bv2p9s73fkae0g-a/malicious',
-        'PORT': 5432,
-    }
+    'default': dj_database_url.config(default='postgresql://aitec_user:6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv@dpg-csfvg9bv2p9s73fkae0g-a/malicious', conn_max_age=600)
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'malicious',
+    #     'USER': 'aitec_user',
+    #     'PASSWORD': '6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv',
+    #     'HOST': 'postgresql://aitec_user:6qrfZPFOdUbjfmCzY8hEZHsl1TIvTJqv@dpg-csfvg9bv2p9s73fkae0g-a/malicious',
+    #     'PORT': 5432,
+    # }
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
     #     'NAME': 'malicious',
@@ -175,7 +184,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR/'staticfiles'
+# STATIC_ROOT = BASE_DIR/'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
